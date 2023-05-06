@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Factories\Models;
+namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,7 +17,12 @@ class CustomerFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'first_name' => fake()->firstname(),
+            'last_name' => fake()->lastName(),
+            'date_of_birth' => fake()->dateTime()->format('Y-m-d'),
+            'phone_number' => fake()->phoneNumber(),
+            'email' => fake()->unique()->safeEmail(),
+            'bank_account_number' => fake()->numerify('####-####-####-####'),
         ];
     }
 }
