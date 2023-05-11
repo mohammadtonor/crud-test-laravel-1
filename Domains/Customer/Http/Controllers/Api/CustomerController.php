@@ -1,8 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Domains\Customer\Http\Controllers\Api;
 
-use App\Models\Models\Customer;
+use App\Models\Customer;
+use App\Support\NormalResponseJson;
+use Domains\Customer\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -10,9 +12,15 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(NormalResponseJson $normalResponseJson)
     {
-        //
+        try {
+            $customers = Customer::all();
+            return response()->json( $normalResponseJson::normalizeResponse($customers,false));
+        }
+        catch ( \Exception $ex) {
+            return response()->json($normalResponseJson::normalizeResponse($ex->getMessage(),true));
+        }
     }
 
     /**
